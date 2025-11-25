@@ -2,11 +2,11 @@
 | || 
 || |_
 */
+#include "Loss.h"
 #include <iostream>
 #include <vector>
 #include <cmath>
 #include <algorithm>
-#include "Loss.h"
 using namespace std;
 double MSE(const vector<double>& expected, const vector<double>& received){ //mean-squared error
     if (expected.size() != received.size()) {
@@ -30,9 +30,13 @@ double MAE(const vector<double>& expected, const vector<double>& received){ //me
     }
     return ret/=size;
 }
-double BCE(const double& expected, double& received){ //binary cross entropy (expected and received are on the unit interval)
-    received = clamp(received, 1e-15, 1 - 1e-15);   
-    return -(expected*log(received) + (1-expected)*log(1-received));
+double BCE(const double& expected, const double& received){ //binary cross entropy (expected and received are on the unit interval)
+    double r = clamp(received, 1e-15, 1 - 1e-15);   
+    return -(expected*log(r) + (1-expected)*log(1-r));
+}
+double backBCE(const double& expected, const double& received){ // removeable
+    double r = clamp(received, 1e-15, 1 - 1e-15);   
+    return (expected-r)/(r-r*r);
 }
 
 double CCE(const vector<double>& expected, const vector<double>& received){ // categorical loss entropy
