@@ -5,7 +5,7 @@ using namespace std;
 
 template<typename T, typename U>
 void shuffle_together(vector<T>& a, vector<U>& b){
-    vector<int> idx(data.size());
+    vector<int> idx(a.size());
     for (int i = 0; i < (int)idx.size(); i++)
         idx[i] = i;
 
@@ -13,14 +13,14 @@ void shuffle_together(vector<T>& a, vector<U>& b){
     mt19937 gen(rd());
     shuffle(idx.begin(), idx.end(), gen);
 
-    vector<vector<double>> data_shuf(data.size());
-    vector<double> ans_shuf(dataAns.size());
+    vector<T> a_shuf(a.size());
+    vector<U> b_shuf(b.size());
 
     for (int i = 0; i < (int)idx.size(); i++) {
-        data_shuf[i] = data[idx[i]];
-        ans_shuf[i] = dataAns[idx[i]];
+        a_shuf[i] = a[idx[i]];
+        b_shuf[i] = b[idx[i]];
     }
 
-    data = move(data_shuf);
-    dataAns = move(ans_shuf);
+    a = move(a_shuf);
+    b = move(b_shuf);
 }
