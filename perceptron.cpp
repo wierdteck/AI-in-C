@@ -5,29 +5,6 @@
 #include <random>
 using namespace std;
 
-class Perceptron{
-    public:
-        Perceptron(int s);
-        double inference(const vector<double>& data);
-        double test(const vector<double> &data, const double &y);
-        double Loss(const vector<double> &data, const double &y);
-        double backProp(const vector<double> &data, const double &y, const double& a);
-
-        void Print(){
-            for(int i = 0; i < size; i++){
-                cout << "The weight for this nueron is: " << weights[i] << endl;
-            }
-            cout << "The bias is: " << bias << endl; 
-        }
-    private:
-        int size;
-        vector<double> weights;
-        double bias;
-        double sigmoid(double x){
-            return 1.0 / (1.0 + exp(-x));
-        }
-};
-
 Perceptron::Perceptron(int s){
     size = s;
 
@@ -55,14 +32,10 @@ double Perceptron::test(const vector<double>& data, const double& y){
 double Perceptron::Loss(const vector<double>& data, const double& y){
     return BCE(y, inference(data));
 }
-double Perceptron::backProp(const vector<double>& data, const double& y, const double& a){
+void Perceptron::backProp(const vector<double>& data, const double& y, const double& a){
     double dldf = inference(data) - y;
     for(int i = 0; i < size; i++){
         weights[i] -= a*data[i]*dldf;
     }
     bias -= a*dldf;
-}
-
-int main(){
-    return 0;
 }

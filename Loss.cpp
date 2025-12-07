@@ -48,6 +48,3 @@ double CCE(const vector<double>& expected, const vector<double>& received){ // c
     }
     return -ret;
 }
-int main(){
-    return 0;
-}

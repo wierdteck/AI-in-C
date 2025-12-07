@@ -2,6 +2,7 @@
 #define PERCEPTRON_H
 
 #include <vector>
+#include <cmath>
 
 class Perceptron{
     public:
@@ -16,8 +17,9 @@ class Perceptron{
         int size;
         std::vector<double> weights;
         double bias;
-        
-        double sigmoid(double x);
+        double sigmoid(double x) {
+            return 1.0 / (1.0 + exp(-x));
+        }
 };
 
 #endif
